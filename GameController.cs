@@ -5,8 +5,10 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     float spawnTimer;
-    floar spawnRate = 3f;
-    public GameObject asteroide;
+    float spawnRate = 3f;
+    public GameObject block;
+    public static bool gameover; //statica e pubblica così che tutti i gameObject la possono modificare
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,12 +18,15 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spawnTimer += Time.deltaTime;
-        if (spawnTimer >= spawnRate) //se sono trascorsi tre secondi
+        if (!gameover)
         {
-            spawnTimer -= spawnRate;
-            Vector2 spawnPos = new Vector2(2f, Random.Range(-1f, 2f)); //così che gli ostacoli spawnano in altezze differenti
-            Instantiate(asteroide, spawnPos, Quaternion.identity); //3 parametro = non ruota
+            spawnTimer += Time.deltaTime;
+            if (spawnTimer >= spawnRate) //se trascorrono 3 secondi
+            {
+                spawnTimer -= spawnRate; //torna a circa 0
+                Vector2 spawnPos = new Vector2(2f, Random.Range(-3f, 3f)); //la y varia ogni spawn casualmente
+                Instantiate(block, spawnPos, Quaternion.identity); //oggetto che spawna, posizione di spawn, rotazione (nessuna)
+            }
         }
     }
 }
