@@ -17,10 +17,14 @@ public class Flappy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !GameController.gameover) //se clicca il tasto sx e non è finito il gioco
+        if (Input.GetMouseButtonDown(0) && !GameController.gameover && Punti.punteggio < 5) //se clicca il tasto sx e non è finito il gioco
         {
             rb.velocity = new Vector2(0f, 7f); //salto
         } 
+        if (Input.GetMouseButtonDown(0) && !GameController.gameover && Punti.punteggio >= 5)
+        {
+            rb.velocity = new Vector2(0f, -7f); //salto con gravità invertita
+        }
     }
 
     // Logica dietro la collisione
